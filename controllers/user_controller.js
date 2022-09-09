@@ -13,6 +13,18 @@ module.exports.profile = function(req, res) {
     
 }
 
+module.exports.update = function(req, res){
+
+    if(req.user.id == req.params.id) {
+        User.findByIdAndUpdate(req.params.id, req.body, function(err, user) {
+            // alert('Profile Udpated');
+            return res.redirect('/');
+        });
+    }else {
+        return res.status(401).send('Unauthorized');
+    }
+}
+
 module.exports.friends = function(req, res) {
 
     // return res.end('<h1>All My Friends List</h1>')
