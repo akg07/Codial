@@ -12,10 +12,22 @@
         <ul>
             <% for(let post of posts) { %>
                 <li>
-                    <%= post.content %>
-                    <small>
-                        <%= post.user.name %>
-                    </small>
+                    <p>
+                        <%= post.content %>
+                        <small>
+                            <%= post.user.name %>
+                        </small>
+                    </p>
+                    <div class="post-comments">
+                        <% if(locals.user){ %>
+                            <form action="/comments/create" method="POST">
+                                <input type="text" name="content" placeholder="Add Comment...">
+                                <input type="hidden" name="post" value="<%= post._id %>">
+                                <input type="submit" value="add comment">
+                            </form>
+
+                        <% } %>
+                    </div>
                 </li>
             <% } %>
         </ul>

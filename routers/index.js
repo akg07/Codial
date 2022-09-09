@@ -15,6 +15,8 @@ router.use('/users', require('./users'));
 // routers for post
 router.use('/posts', require('./posts'));
 
+router.use('/comments', require('./comments'));
+
 // 404 not found page
 router.get('*', function(req, res) {
     return res.render('404');
