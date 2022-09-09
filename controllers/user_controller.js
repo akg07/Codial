@@ -67,7 +67,7 @@ module.exports.create = function(req, res) {
 // sign in and create a session for user
 module.exports.createSession = function(req, res) {
     
-    return res.redirect('/');
+    return res.redirect('/'); // redirect user to home
 }
 
 module.exports.distroSession = function(req, res) {
@@ -76,7 +76,7 @@ module.exports.distroSession = function(req, res) {
         if(err) {
             console.log(err || 'Logged out from session');
         }
-        return res.redirect('/');
+        return res.redirect('/'); // redirect user to home
     }); 
 
 }
