@@ -1,7 +1,7 @@
 const Post = require('../models/post');
 const User = require('../models/user');
 
-module.exports.home = function(req, res) {
+module.exports.home = async function(req, res) {
 
     // console.log(req.cookies);
 
@@ -18,6 +18,8 @@ module.exports.home = function(req, res) {
     */
 
     // with fetching users details -> populate the user of each posts
+    // Type 1: using normal way
+    /*
     Post.find({})
     .populate('user')
     .populate({
@@ -39,7 +41,32 @@ module.exports.home = function(req, res) {
         
     });
 
+    */
 
+    // Type 2: Using promises
+
+    // Type 3: Using asyn await
+
+    try{
+        let posts = await Post.find({})
+        .populate('user')
+        .populate({
+            path: 'comments',
+            populate: {
+                path: 'user'
+            }
+        });
+
+        let users = await User.find({});
+
+        return res.render('home', {
+            title: "Codial | Home",
+            posts: posts,
+            all_users: users
+        });
+    }catch(err) {
+        console.log('error', err);
+    }
 }
 
 /*
