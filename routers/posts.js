@@ -12,4 +12,7 @@ router.get('/feed', postController.feed);
 // create a new post
 router.post('/create', passport.checkAuthentication , postController.create);
 
+//delete a post and related comments
+router.get('/destroy/:id', passport.checkAuthentication, postController.destroy);
+
 module.exports = router;

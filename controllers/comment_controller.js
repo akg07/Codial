@@ -29,3 +29,27 @@ module.exports.create = function(req, res) {
         }
     });
 }
+
+module.exports.destroy = function(req, res) {
+
+    Comment.findById(req.params.id, function(err, comment) {
+
+        // comment user and logged in user should be same
+        if(comment.user == req.user.id) {
+
+            let post_id = comment.post;
+            Comment.remove();
+
+            Post.findByIdAndUpdate(post_id, {
+                $pull: {
+                    comments: req.params.id
+                }
+            }, function(err, post) {
+
+                return res.redirect('back');
+            });
+        }else {
+            return res.redirect('back');
+        }
+    });
+}
