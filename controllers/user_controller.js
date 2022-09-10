@@ -18,9 +18,11 @@ module.exports.update = function(req, res){
     if(req.user.id == req.params.id) {
         User.findByIdAndUpdate(req.params.id, req.body, function(err, user) {
             // alert('Profile Udpated');
+            req.flash('success', 'Profile updated successfully');
             return res.redirect('/');
         });
     }else {
+        req.flash('error', 'Unauthorized: Access Denied')
         return res.status(401).send('Unauthorized');
     }
 }
@@ -36,6 +38,7 @@ module.exports.friends = function(req, res) {
 // render the sign up page
 module.exports.signUp = function(req, res) {
     if(req.isAuthenticated()) {
+        req.flash('success', 'Welcome to Codial!!!');
         return res.redirect('/users/profile');
     }
 
@@ -83,7 +86,7 @@ module.exports.create = function(req, res) {
 
 // sign in and create a session for user
 module.exports.createSession = function(req, res) {
-    req.flash('success', 'Logged In Successfully');
+    req.flash('success', 'Wellcome Back!! ' + req.user.name);
     return res.redirect('/'); // redirect user to home
 }
 
@@ -93,7 +96,7 @@ module.exports.distroSession = function(req, res) {
         if(err) {
             console.log(err || 'Logged out from session');
         }
-        req.flash('success', 'Logged out Successfully');
+        req.flash('success', 'See you soon :-)');
         return res.redirect('/'); // redirect user to home
     }); 
 
