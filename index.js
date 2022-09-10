@@ -11,6 +11,9 @@ const MongoStore = require('connect-mongo');
 
 const sassMiddleware = require('node-sass-middleware');
 
+const flash = require('connect-flash');
+const customMiddleware = require('./configs/middleware');
+
 const app = express();
 const port = 8000;
 
@@ -62,6 +65,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser);
+
+app.use(flash());
+app.use(customMiddleware.setFlash);
 
 app.use('/', require('./routers')); // router should be last statement in the script
 
