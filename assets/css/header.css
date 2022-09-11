@@ -1,0 +1,39 @@
+header ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #393939;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+header ul #title {
+  font-size: 20px;
+}
+
+header ul li {
+  float: left;
+}
+
+header ul li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+header ul li a:not(#title) {
+  margin-top: 5px;
+  margin-right: 3px;
+}
+
+header ul li a:hover:not(.active) {
+  background-color: #111;
+}
+
+header .active {
+  background-color: #0cd8eb;
+}
