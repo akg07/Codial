@@ -31,6 +31,9 @@ app.use(cookieParser());
 // use express router
 app.use(expressLayouts);
 
+// for multer file-upload
+app.use('/uploads', express.static(__dirname + '/uploads')); // make the uploads path available to the browser
+
 // extract style and scripts from subpages into the layout
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);

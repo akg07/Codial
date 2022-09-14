@@ -48,7 +48,9 @@ module.exports.home = async function(req, res) {
     // Type 3: Using asyn await
 
     try{
+        //populate each user
         let posts = await Post.find({})
+        .sort('-createdAt')
         .populate('user')
         .populate({
             path: 'comments',

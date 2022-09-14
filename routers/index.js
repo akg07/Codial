@@ -17,10 +17,14 @@ router.use('/posts', require('./posts'));
 
 router.use('/comments', require('./comments'));
 
+router.use('/api', require('./api'));
+
 // 404 not found page
 router.get('*', function(req, res) {
     return res.render('404');
 })
+
+
 
 /*
     for any further routes, access from here
