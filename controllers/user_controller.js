@@ -1,6 +1,16 @@
 const User = require('../models/user');
+
+// for reset pass
+const UserAT = require('../models/userAT');
+const crypto = require('crypto');
+const resetPassMailer = require('../mailers/reset_pass_mailer');
+const queue = require('../configs/kue');
+const resetPassWorker = require('../workers/reset_pass_email_worker');
+
+// for dp upload
 const fs = require('fs'); // file-system
 const path = require('path');
+const { render } = require('ejs');
 
 module.exports.profile = function(req, res) {
 
@@ -144,4 +154,92 @@ module.exports.distroSession = function(req, res) {
         return res.redirect('/'); // redirect user to home
     }); 
 
+}
+
+module.exports.render_reset = function(req, res) {
+    
+    return res.render('reset_page');
+}
+
+module.exports.generateAccessToken = async function(req, res) {
+    try{
+        let user = await User.findOne({email: req.body.email});
+
+        if(user){
+            // create user with accessToken
+            let userWithAT = await UserAT.create({
+                user: user,
+                email: user.email,
+                name: user.name,
+                accessToken: crypto.randomBytes(20).toString('hex')
+            });
+        
+            // populate userAT with users fields
+            userWithAT = await userWithAT.populate('user', 'name email');
+
+            // add user with access token to mailer worker
+            let job = queue.create('resetPassEmails', userWithAT).save();
+            console.log('Job Enqueued');
+        }
+        return res.render('reset_pass_message');
+
+    }catch(err){
+        console.log('error: Processing reset password request ', err)
+    }
+}
+
+module.exports.verifyAccessToken = async function(req, res) {
+
+    let userWithAT = await UserAT.findOne({accessToken: req.params.id});
+
+    // if link is invalid
+    if(!userWithAT) {
+        return res.render('invalid', {
+            message: 'invalid Link'
+        });
+    }
+
+    // if token is invalid
+    if(! userWithAT.isValid) {
+        return res.render('invalid', {
+            message: 'Link Expired'
+        });
+    }
+
+    let userId = userWithAT.user;
+
+    let user = await User.findById(userId);
+    
+    if(user){
+        await UserAT.findOneAndUpdate({accessToken: req.params.id}, {isValid: false});
+        return res.render('new_password', {
+            user: user
+        });
+    }
+
+
+    return res.render('invalid', {
+        message: 'Invalid User'
+    });
+}
+
+module.exports.changePassword = async function(req, res) {
+
+    console.log(req.body.email + " " + req.body.password + " " + req.body.confirm_password);
+
+    if(req.body.password == req.body.confirm_password) {
+        let user = await User.findOneAndUpdate(
+            {email: req.body.email},
+            {password: req.body.password});
+        
+            if(user) {
+                return res.render('user_sign_in');
+            }
+        
+    }
+    
+    
+    return res.render('invalid', {
+        message: "password and confirm password doesn't match"
+    });
 }

@@ -27,6 +27,44 @@
         // top: 0;
         // overflow-y: auto;
         // overflow-x: hidden;
+
+        h4{
+            text-align: center;
+
+        }
+
+        #friends-list-container{
+
+            ul{
+                li{
+                    list-style: none;
+                    background-color: antiquewhite;
+                    width: 85%;
+                    margin: 12px 10px;
+                    padding: 13px;
+                    border-radius: 5px;
+
+                    img{
+                        width: 50px;
+                        border-radius: 50%;
+                        margin-right: 20px;
+                    }
+
+                    a{
+                        font-size: 17px;
+                        color: black;
+                        text-decoration: none;
+                        font-weight: 500;
+                    }
+
+                    
+                }
+
+                li:hover{
+                    background-color: azure;
+                }
+            }
+        }
     }
 
     #feed-posts::-webkit-scrollbar{
