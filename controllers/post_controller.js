@@ -1,5 +1,6 @@
 const Post = require('../models/post');
 const Comment = require('../models/comment');
+const Like = require('../models/like');
 
 module.exports.recient = function(req, res) {
     // return res.end('<h1>Recient Posts Sections</h1>')
@@ -23,7 +24,7 @@ module.exports.create = async function(req, res) {
         
         if (req.xhr){
             // if we want to populate just the name of the user (we'll not want to send the password in the API), this is how we do it!
-            post = await post.populate('user');
+            post = await post.populate('user', 'name email');
 
             return res.status(200).json({
                 data: {
@@ -52,11 +53,13 @@ module.exports.destroy = async function(req, res) {
     
         // .id means converting the object id (_id) into string
         if(post.user == req.user.id) {
+            
+            await Like.deleteMany({likeable: post, onModel: 'Post'});
+            await Like.deleteMany({likeable: {$in: post.comments}});
+            
             post.remove();
             
-            await Comment.deleteMany({
-                post: req.params.id
-            });
+            await Comment.deleteMany({post: req.params.id});
 
             if(req.xhr) {
                 return res.status(200).json({

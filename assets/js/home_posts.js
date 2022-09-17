@@ -19,8 +19,9 @@
                     $('#posts-list-container>ul').prepend(newPost); //get this id from home.ejs and add new post dom
                     
                     deletePost($(' .delete-post-button', newPost)); // add delete link to new post
-
+                    
                     new PostComments(data.data.newPost._id); //call the create comment class
+                    new ToggleLike($(' .toggle-like-btn', newPost)); // add new like button to new post
 
                     // create notification using NOTY library
                     new Noty({
@@ -50,6 +51,12 @@
                         ${post.content}
                         <small>
                             ${post.user.name}
+                        </small>
+
+                        <small>
+                            <a href="/likes/toggle/?id=${post._id}&type=Post" class="toggle-like-btn" data-likes="<%= post.likes.length %>">
+                                ${post.likes.length} Likes
+                            </a>
                         </small>
                     </p>
                     <div class="post-comments">
