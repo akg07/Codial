@@ -1,61 +1,76 @@
 #user-chat-box {
   position: fixed;
-  bottom: 0px;
+  bottom: 10px;
   right: 10px;
   border: 1px dashed grey;
   height: 300px;
-  width: 250px;
+  width: 270px;
   background: white;
-  padding: 5px 5px 0px 5px;
+  padding: 5px 0px;
   box-shadow: 1px 1px 1px 1px lightgrey;
 }
 
 #user-chat-box #chat-message-list-container {
   list-style: none;
   padding: 0px;
-  height: 78%;
+  height: 84%;
   background-color: white;
   overflow: auto;
 }
 
-#user-chat-box #chat-message-list-container .recieved-message {
+#user-chat-box #chat-message-list-container .other-message {
   text-align: left;
   padding: 5px;
 }
 
-#user-chat-box #chat-message-list-container .recieved-message span {
+#user-chat-box #chat-message-list-container .other-message span {
   display: inline-block;
   padding: 10px;
-  background-color: #848484;
+  background-color: #e387f1;
   color: white;
 }
 
-#user-chat-box #chat-message-list-container .sent-message {
+#user-chat-box #chat-message-list-container .other-message sub {
+  display: block;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+#user-chat-box #chat-message-list-container .self-message {
   text-align: right;
   padding: 5px;
 }
 
-#user-chat-box #chat-message-list-container .sent-message span {
+#user-chat-box #chat-message-list-container .self-message span {
   display: inline-block;
   padding: 10px;
   background-color: dodgerblue;
   color: white;
 }
 
+#user-chat-box #chat-message-list-container .self-message sub {
+  display: block;
+  margin-top: 10px;
+  font-style: italic;
+}
+
 #user-chat-box #chat-input-container {
-  height: 15%;
+  height: 24%;
   width: 100%;
   display: flex;
+  bottom: 0px;
   flex-direction: row;
 }
 
 #user-chat-box #chat-input-container #chat-message-input {
+  height: 50%;
   width: 70%;
 }
 
 #user-chat-box #chat-input-container #send-message {
+  height: 50%;
   width: 30%;
-  font-size: 25px;
+  font-size: 20px;
   color: white;
   border: none;
   background: dodgerblue;

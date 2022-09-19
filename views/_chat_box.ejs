@@ -3,16 +3,19 @@
 <% if(locals.user) { %>
     <div id="user-chat-box">
         <ul id="chat-message-list-container">
-            <li class="recieved-message">
+            <!-- Demo messages -->
+            <!-- <li class="other-message">
                 <span>Recieved Message</span>
+                <sub>sender name</sub>
             </li>
-            <li class="sent-message">
+            <li class="self-message">
                 <span>Sent Message</span>
-            </li>
+                <sub>receiver name</sub>
+            </li> -->
         </ul>
 
         <div id="chat-input-container">
-            <input type="text" id="chat-message-input" placeholder="Type message here...">
+            <input id="chat-message-input" placeholder="Type message here...">
             <button id="send-message">Send</button>
         </div>
     </div>

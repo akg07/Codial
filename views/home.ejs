@@ -4,6 +4,7 @@
     
     <section id="feed-posts">
         <h4>Posts</h4>
+        
         <% if(locals.user){ %>
         <form action="/posts/create" id="new-post-form" method="POST">
             <textarea id="post-content" name="content" cols="30" rows="3" placeholder="Type Here..." required></textarea>
@@ -20,28 +21,28 @@
             </ul>
         </div>
     </section>
-
+    
+    
     <section id="user-friends">
         <h4>Friends</h4>
         <div id="friends-list-container">
-        <ul>
-            <% for(user of all_users) { %>
+            <ul>
+                <% for(u of all_users) { %>
                 <li>
-                    <img src="<%= user.avatar %>" alt="Dp">
-                    <a href="users/profile/<%= user.id %>"><%= user.name %></a>
+                    <img src="<%= u.avatar %>" alt="Dp">
+                    <a href="users/profile/<%= u.id %>"><%= u.name %></a>
                 </li>
-            <% } %>
-        </ul>
-    </div>
+                <% } %>
+            </ul>
+        </div>
     </section>
-
-    <section id="chat-box">
-        <%- include('_chat_box'); %>
-    </section>
+    <%- include('_chat_box'); %>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.2/socket.io.js"></script>
 <script src="/js/home_comments.js"></script>
 <script src="/js/home_posts.js"></script>
 <script src="/js/toggle_likes.js"></script>
+<script src="/js/chat_engine.js"></script>
 
 <script>
     $('.toggle-like-btn').each(function(){
@@ -49,3 +50,9 @@
         let toggleLike = new ToggleLike(self);
     });
 </script>
+
+<% if(locals.user) { %>
+    <script>
+        new ChatEngine('user-chat-box', '<%= locals.user.email %>', '<%= locals.user.name %>');
+    </script>
+<% } %>

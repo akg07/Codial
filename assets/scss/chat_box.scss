@@ -1,34 +1,38 @@
 #user-chat-box{
-position: fixed;
-bottom: 0px;
-right: 10px;
-border: 1px dashed grey;
-height: 300px;
-width: 250px;
-background: white;
-padding: 5px 5px 0px 5px;
-box-shadow: 1px 1px 1px 1px lightgrey;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    border: 1px dashed grey;
+    height: 300px;
+    width: 270px;
+    background: white;
+    padding: 5px 0px;
+    box-shadow: 1px 1px 1px 1px lightgrey;
 
     #chat-message-list-container{
         list-style: none;
         padding: 0px;
-        height: 78%;
+        height: 84%;
         background-color: white;
         overflow: auto;
 
-        .recieved-message{
+        .other-message{
             text-align: left;
             padding: 5px;
             span{
                 display: inline-block;
                 padding: 10px;
-                background-color: #848484;
+                background-color: #e387f1;
                 color: white;
             }
-            
+            sub{
+                display: block;
+                margin-top: 10px;
+                font-style: italic;
+            }
         }
 
-        .sent-message{
+        .self-message{
             text-align: right;
             padding: 5px;
             
@@ -39,25 +43,30 @@ box-shadow: 1px 1px 1px 1px lightgrey;
                 background-color: dodgerblue;
                 color: white;
             }
-            
+            sub{
+                display: block;
+                margin-top: 10px;
+                font-style: italic;
+            }
         }
 
     }
     #chat-input-container{
-        height: 15%;
+        height: 24%;
         width: 100%;
         display: flex;
+        bottom: 0px;
         flex-direction: row;
 
         #chat-message-input{
-            // height: 40%;
+            height: 50%;
             width: 70%;
         }
 
         #send-message{
-            // height: 50%;
+            height: 50%;
             width: 30%;
-            font-size: 25px;
+            font-size: 20px;
             color: white;
             border: none;
             background: dodgerblue;
