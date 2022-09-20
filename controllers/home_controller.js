@@ -1,6 +1,5 @@
 const Post = require('../models/post');
 const User = require('../models/user');
-const env = require('../configs/enviornment');
 
 module.exports.home = async function(req, res) {
 
@@ -70,7 +69,6 @@ module.exports.home = async function(req, res) {
         let users = await User.find({});
 
         return res.render('home', {
-            title: `Post | ${env.name}`,
             posts: posts,
             all_users: users
         });

@@ -1,5 +1,6 @@
 const passport = require('passport');
 const User = require('../models/user');
+const env = require('./enviornment');
 
 const LocalStrategy = require('passport-local').Strategy;
 
@@ -58,6 +59,9 @@ passport.checkAuthentication = function(req, res, next) {
 }
 
 passport.setAuthenticatedUser = function(req, res, next) {
+    // set enviornment name along with codial
+    res.locals.env_name = env.name;
+
     if(req.isAuthenticated()) {
         // req.user contains the current signed user from the session cookie and we are just sending this to locals for views
         res.locals.user = req.user;

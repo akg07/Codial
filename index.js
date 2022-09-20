@@ -9,6 +9,8 @@ const port = 8000;
 
 const db = require('./configs/mongoose');
 
+require('./configs/view_helpers')(app);
+
 // used for session cookie and authentication
 const session = require('express-session');
 const passport = require('passport');
